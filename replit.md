@@ -4,12 +4,14 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- Workflow: **artifacts/api-server: API Server** — runs the API server (starts automatically)
+- `pnpm --filter @workspace/api-server run dev` — run the API server manually (requires `PORT=8080`)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- Health check: `GET /api/healthz` → `{"status":"ok"}`
+- Required env: `DATABASE_URL` — provided automatically by Replit's built-in PostgreSQL
 
 ## Stack
 
