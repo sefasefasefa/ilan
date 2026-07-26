@@ -49,18 +49,11 @@ export function Anasayfa() {
 
   return (
     <div className="min-h-screen font-sans text-[#1A1A1A] bg-[#F7F5F2] selection:bg-[#C0392B]/20 selection:text-[#962A20]">
-      {/* Top Utility Bar */}
-      <div className="bg-[#1A1A1A] text-white text-[11px] h-[36px] flex items-center justify-between px-4 lg:px-8">
-        <div className="font-medium tracking-wide">Türkiye'nin en büyük alışveriş platformu</div>
-        <div className="flex items-center gap-4 text-white/80">
-          <a href="#" className="hover:text-white transition-colors">Satıcı Ol</a>
-          <a href="#" className="hover:text-white transition-colors">Yardım</a>
-          <a href="#" className="hover:text-white transition-colors">Giriş Yap</a>
-          <a href="#" className="hover:text-white transition-colors">Kayıt Ol</a>
-        </div>
-      </div>
-      {/* Main Header */}
-      <header className="sticky top-0 z-50 bg-white border-b border-[#E8E4DF] shadow-sm">
+      {/* Main Header — sticky, includes utility bar + logo/search row */}
+      <header className="sticky top-0 z-50 shadow-sm">
+
+        {/* Logo / Search row */}
+        <div className="bg-white border-b border-[#E8E4DF]">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-8 h-[72px] flex items-center justify-between gap-4 lg:gap-8">
           {/* Logo */}
           <a href="#" className="text-[28px] font-extrabold tracking-tight text-[#1A1A1A] shrink-0 pb-1">
@@ -106,15 +99,16 @@ export function Anasayfa() {
             </button>
           </div>
         </div>
+        </div>{/* end logo/search row */}
       </header>
       {/* Category Nav Bar */}
       <nav className="bg-white border-b border-[#E8E4DF]">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
-          <div className="flex gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] bg-sidebar-accent-foreground">
+          <div className="flex gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {navCats.map((nc, i) => (
               <button 
                 key={nc} 
-                className="whitespace-nowrap py-3.5 transition-colors text-zinc-600 hover:text-[#1A1A1A] border-b-[3px] border-transparent font-medium text-base bg-sidebar-ring rounded-tl-[15px] rounded-tr-[15px] rounded-br-[15px] rounded-bl-[15px]"
+                className={`whitespace-nowrap py-3.5 transition-colors font-medium text-base border-b-[3px] ${i === 0 ? 'text-[#C0392B] border-[#C0392B] font-semibold' : 'text-zinc-600 hover:text-[#1A1A1A] border-transparent'}`}
               >
                 {nc}
               </button>
@@ -231,7 +225,7 @@ export function Anasayfa() {
           <h2 className="text-[20px] font-bold text-[#1A1A1A] tracking-tight mb-4">Şehrinizde Arama Yapın</h2>
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-4 px-4 lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {cities.map((city, i) => (
-              <a href="#" key={i} className="min-w-[160px] bg-white border border-[#E8E4DF] rounded-lg p-3.5 block hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)] hover:border-zinc-300 transition-all group">
+              <a href="#" key={i} className="min-w-[160px] border border-[#E8E4DF] rounded-lg p-3.5 block hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)] hover:border-zinc-300 transition-all group bg-sidebar-accent-foreground">
                 <div className={`w-full h-24 rounded-md mb-3 ${city.color} opacity-90 group-hover:opacity-100 transition-opacity`}></div>
                 <h3 className="font-bold text-[15px] text-[#1A1A1A] group-hover:text-[#C0392B] transition-colors">{city.name}</h3>
                 <p className="text-[13px] text-zinc-500 font-medium mt-0.5">{city.count}</p>
@@ -249,9 +243,7 @@ export function Anasayfa() {
               <a href="#" className="text-[32px] font-extrabold tracking-tight text-[#1A1A1A] inline-block mb-4">
                 <span className="text-[#C0392B]">ç</span>arşı
               </a>
-              <p className="text-[14px] text-zinc-600 font-medium leading-relaxed mb-6 max-w-sm">
-                Türkiye'nin en pratik ve güvenilir alışveriş platformu. İkinci el eşyalardan sıfır ürünlere, emlak ve araçtan hizmet ilanlarına kadar her şey burada.
-              </p>
+
               <div className="flex gap-3">
                 {/* Social placeholders */}
                 <div className="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-600 hover:bg-[#1A1A1A] hover:text-white transition-colors cursor-pointer">
