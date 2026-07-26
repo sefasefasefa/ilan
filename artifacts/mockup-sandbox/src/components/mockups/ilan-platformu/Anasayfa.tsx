@@ -59,7 +59,6 @@ export function Anasayfa() {
           <a href="#" className="hover:text-white transition-colors">Kayıt Ol</a>
         </div>
       </div>
-
       {/* Main Header */}
       <header className="sticky top-0 z-50 bg-white border-b border-[#E8E4DF] shadow-sm">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-8 h-[72px] flex items-center justify-between gap-4 lg:gap-8">
@@ -108,7 +107,6 @@ export function Anasayfa() {
           </div>
         </div>
       </header>
-
       {/* Category Nav Bar */}
       <nav className="bg-white border-b border-[#E8E4DF]">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
@@ -116,11 +114,7 @@ export function Anasayfa() {
             {navCats.map((nc, i) => (
               <button 
                 key={nc} 
-                className={`whitespace-nowrap py-3.5 text-[14px] transition-colors ${
-                  i === 0 
-                    ? 'text-[#C0392B] border-b-[3px] border-[#C0392B] font-bold' 
-                    : 'text-zinc-600 hover:text-[#1A1A1A] border-b-[3px] border-transparent font-medium'
-                }`}
+                className="whitespace-nowrap py-3.5 transition-colors text-zinc-600 hover:text-[#1A1A1A] border-b-[3px] border-transparent font-medium text-base bg-sidebar-ring rounded-tl-[15px] rounded-tr-[15px] rounded-br-[15px] rounded-bl-[15px]"
               >
                 {nc}
               </button>
@@ -128,7 +122,6 @@ export function Anasayfa() {
           </div>
         </div>
       </nav>
-
       <main className="max-w-[1400px] mx-auto px-4 lg:px-8 py-8 space-y-12">
         
         {/* Hero Section */}
@@ -248,7 +241,6 @@ export function Anasayfa() {
         </section>
 
       </main>
-
       {/* Footer */}
       <footer className="bg-white border-t border-[#E8E4DF] pt-16 pb-8">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
