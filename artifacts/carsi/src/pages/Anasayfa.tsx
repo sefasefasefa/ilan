@@ -304,12 +304,20 @@ export function Anasayfa() {
         {/* Search row */}
         <div className="bg-white border-b border-[#E8E4DF] py-3">
           <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
-            <div className="hidden md:flex border-2 border-[#1A1A1A] rounded overflow-hidden h-11 focus-within:ring-2 focus-within:ring-[#C0392B]/20 focus-within:border-[#C0392B] transition-all">
+            <div className="hidden md:flex items-center gap-3">
+              <button className="shrink-0 h-11 px-6 rounded border-2 border-[#1A1A1A] bg-white text-[#1A1A1A] font-semibold text-[14px] hover:bg-zinc-50 transition-colors">
+                Buy
+              </button>
+              <button className="shrink-0 h-11 px-6 rounded border-2 border-[#C0392B] bg-[#C0392B] text-white font-semibold text-[14px] hover:bg-[#962A20] hover:border-[#962A20] transition-colors">
+                Sell
+              </button>
+            <div className="flex-1 flex border-2 border-[#1A1A1A] rounded overflow-hidden h-11 focus-within:ring-2 focus-within:ring-[#C0392B]/20 focus-within:border-[#C0392B] transition-all">
               <button className="bg-zinc-100 px-4 border-r border-[#1A1A1A] flex items-center gap-2 text-[13px] font-semibold text-zinc-800 hover:bg-zinc-200 transition-colors shrink-0">
                 Kategori <ChevronDown className="w-3.5 h-3.5 opacity-60" />
               </button>
               <input type="text" placeholder="Ne arıyorsunuz?" className="flex-1 px-4 text-[14px] outline-none min-w-0 font-medium placeholder:text-zinc-400 placeholder:font-normal" />
               <button className="bg-[#1A1A1A] text-white px-8 font-semibold text-[14px] hover:bg-black transition-colors">Ara</button>
+            </div>
             </div>
             <div className="flex md:hidden border-2 border-[#1A1A1A] rounded overflow-hidden h-11">
               <input type="text" placeholder="Ne arıyorsunuz?" className="flex-1 px-3 text-[14px] outline-none min-w-0 font-medium placeholder:font-normal placeholder:text-zinc-400" />
