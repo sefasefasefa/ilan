@@ -168,6 +168,7 @@ const trends = ["iPhone 15", "Kiralık Daire", "2. El Araba", "MacBook", "PS5", 
 function MegaMenu({ label, items }: { label: string; items: string[] }) {
   const [open, setOpen] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const show = () => {
     if (timeout.current) clearTimeout(timeout.current);
@@ -180,26 +181,37 @@ function MegaMenu({ label, items }: { label: string; items: string[] }) {
 
   return (
     <div
+      ref={wrapperRef}
       className="relative"
       onMouseEnter={show}
       onMouseLeave={hide}
     >
-      <button className="whitespace-nowrap py-3.5 transition-colors font-medium text-base border-b-[3px] border-transparent text-zinc-600 hover:text-[#1A1A1A] hover:border-[#C0392B]/30">
+      <button className="whitespace-nowrap py-3.5 transition-colors font-medium text-base border-b-[3px] border-transparent text-zinc-600 hover:text-[#1A1A1A] hover:border-[#C0392B]/50 flex items-center gap-1.5">
         {label}
       </button>
 
       {open && (
-        <div className="absolute left-0 top-full pt-2 z-40">
-          <div className="bg-white border border-[#E8E4DF] rounded-xl shadow-xl min-w-[220px] py-2">
+        <div className="absolute left-0 top-full pt-2 z-50">
+          <div className="bg-white border border-[#E8E4DF] rounded-xl shadow-2xl min-w-[240px] py-2">
+            <div className="px-3 py-2 border-b border-[#E8E4DF] mb-1">
+              <span className="text-[12px] font-bold uppercase tracking-wider text-[#C0392B]">{label}</span>
+            </div>
             {items.map((item) => (
               <a
                 key={item}
                 href="#"
-                className="block px-4 py-2 text-[13px] font-medium text-zinc-700 hover:text-[#C0392B] hover:bg-zinc-50 transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 text-[13px] font-medium text-zinc-700 hover:text-[#C0392B] hover:bg-zinc-50 transition-colors"
               >
+                <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 group-hover:bg-[#C0392B]" />
                 {item}
               </a>
             ))}
+            <a
+              href="#"
+              className="block px-4 py-2.5 mt-1 text-[13px] font-semibold text-[#C0392B] hover:bg-red-50 transition-colors border-t border-[#E8E4DF]"
+            >
+              Tüm {label} İlanları →
+            </a>
           </div>
         </div>
       )}
@@ -326,19 +338,21 @@ export function Anasayfa() {
         </div>
 
         {/* Category Nav Bar with mega menus */}
-        <nav className="bg-white border-b border-[#E8E4DF]">
+        <nav className="bg-white border-b border-[#E8E4DF] relative">
           <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
-            <div className="flex gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="flex gap-6 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               {navCategories.map((cat, i) => (
                 i === 0 ? (
                   <button
                     key={cat.name}
-                    className="whitespace-nowrap py-3.5 transition-colors font-medium text-base border-b-[3px] text-[#C0392B] border-[#C0392B] font-semibold"
+                    className="shrink-0 whitespace-nowrap py-3.5 transition-colors font-medium text-base border-b-[3px] text-[#C0392B] border-[#C0392B] font-semibold"
                   >
                     {cat.name}
                   </button>
                 ) : (
-                  <MegaMenu key={cat.name} label={cat.name} items={cat.sub} />
+                  <div key={cat.name} className="shrink-0">
+                    <MegaMenu label={cat.name} items={cat.sub} />
+                  </div>
                 )
               ))}
             </div>
