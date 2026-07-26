@@ -168,11 +168,7 @@ function CategoryNav() {
             <button
               key={cat.name}
               onMouseEnter={() => show(cat.name)}
-              className={`shrink-0 whitespace-nowrap py-3.5 font-medium text-base border-b-[3px] transition-colors flex items-center gap-1 ${
-                active === cat.name
-                  ? 'text-[#C0392B] border-[#C0392B]'
-                  : 'text-zinc-600 border-transparent hover:text-[#1A1A1A]'
-              }`}
+              className="shrink-0 whitespace-nowrap py-3.5 font-medium border-b-[3px] transition-colors flex items-center gap-1 text-[#C0392B] border-[#C0392B] text-[19px]"
             >
               {cat.name}
               <ChevronDown className={`w-3.5 h-3.5 opacity-40 transition-transform ${active === cat.name ? 'rotate-180' : ''}`} />
@@ -180,7 +176,6 @@ function CategoryNav() {
           ))}
         </div>
       </div>
-
       {/* Full-width mega panel */}
       {active && activeCat && (
         <div
@@ -201,7 +196,7 @@ function CategoryNav() {
                       <li key={item}>
                         <a
                           href="#"
-                          className="flex items-center gap-2 py-1.5 text-[13px] font-medium text-zinc-700 hover:text-[#C0392B] transition-colors group/item"
+                          className="flex items-center gap-2 py-1.5 font-medium text-zinc-700 hover:text-[#C0392B] transition-colors group/item text-[15px]"
                         >
                           <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 group-hover/item:bg-[#C0392B] transition-colors shrink-0" />
                           {item}
