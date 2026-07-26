@@ -298,6 +298,57 @@ function ProfileMenu() {
   );
 }
 
+function MegaMenu({ label, items }: { label: string; items: string[] }) {
+  const [open, setOpen] = useState(false);
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleEnter = () => {
+    if (hideTimer.current) clearTimeout(hideTimer.current);
+    setOpen(true);
+  };
+  const handleLeave = () => {
+    hideTimer.current = setTimeout(() => setOpen(false), 120);
+  };
+
+  return (
+    <div onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="relative">
+      <button
+        className={`shrink-0 whitespace-nowrap py-3.5 font-medium text-base border-b-[3px] transition-colors flex items-center gap-1 ${
+          open ? 'text-[#C0392B] border-[#C0392B]' : 'text-zinc-600 border-transparent hover:text-[#1A1A1A]'
+        }`}
+      >
+        {label}
+        <ChevronDown className={`w-3.5 h-3.5 opacity-50 transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+
+      {open && (
+        <div
+          className="absolute left-0 top-full z-50 bg-white border border-[#E8E4DF] rounded-xl shadow-xl min-w-[220px] py-2"
+          onMouseEnter={handleEnter}
+          onMouseLeave={handleLeave}
+        >
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[#C0392B] px-4 pt-2 pb-1">{label}</p>
+          {items.map(item => (
+            <a
+              key={item}
+              href="#"
+              className="flex items-center gap-2 px-4 py-2 text-[13px] font-medium text-zinc-700 hover:text-[#C0392B] hover:bg-zinc-50 transition-colors"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 shrink-0" />
+              {item}
+            </a>
+          ))}
+          <div className="border-t border-[#E8E4DF] mt-1 pt-1 px-4 pb-1">
+            <a href="#" className="text-[12px] font-semibold text-[#C0392B] hover:underline">
+              Tüm {label} →
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function Anasayfa() {
   const featuredListings = listings.slice(0, 3);
 
