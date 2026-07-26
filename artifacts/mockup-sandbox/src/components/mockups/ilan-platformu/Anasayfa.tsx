@@ -166,55 +166,35 @@ const navCategories = [
 const trends = ["iPhone 15", "Kiralık Daire", "2. El Araba", "MacBook", "PS5", "Bisiklet", "Koltuk Takımı", "Arazi Aracı", "Kombi", "Fotoğraf Makinesi"];
 
 function MegaMenu({ label, items }: { label: string; items: string[] }) {
-  const [open, setOpen] = useState(false);
-  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-
-  const show = () => {
-    if (timeout.current) clearTimeout(timeout.current);
-    setOpen(true);
-  };
-
-  const hide = () => {
-    timeout.current = setTimeout(() => setOpen(false), 150);
-  };
-
   return (
-    <div
-      ref={wrapperRef}
-      className="relative"
-      onMouseEnter={show}
-      onMouseLeave={hide}
-    >
-      <button className="whitespace-nowrap py-3.5 transition-colors font-medium text-base border-b-[3px] border-transparent text-zinc-600 hover:text-[#1A1A1A] hover:border-[#C0392B]/50 flex items-center gap-1.5">
+    <div className="group relative">
+      <button className="whitespace-nowrap py-3.5 transition-colors font-medium text-base border-b-[3px] border-transparent text-zinc-600 group-hover:text-[#1A1A1A] group-hover:border-[#C0392B]/60 flex items-center gap-1.5">
         {label}
       </button>
 
-      {open && (
-        <div className="absolute left-0 top-full pt-2 z-50">
-          <div className="bg-white border border-[#E8E4DF] rounded-xl shadow-2xl min-w-[240px] py-2">
-            <div className="px-3 py-2 border-b border-[#E8E4DF] mb-1">
-              <span className="text-[12px] font-bold uppercase tracking-wider text-[#C0392B]">{label}</span>
-            </div>
-            {items.map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="flex items-center gap-2 px-4 py-2.5 text-[13px] font-medium text-zinc-700 hover:text-[#C0392B] hover:bg-zinc-50 transition-colors"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 group-hover:bg-[#C0392B]" />
-                {item}
-              </a>
-            ))}
-            <a
-              href="#"
-              className="block px-4 py-2.5 mt-1 text-[13px] font-semibold text-[#C0392B] hover:bg-red-50 transition-colors border-t border-[#E8E4DF]"
-            >
-              Tüm {label} İlanları →
-            </a>
+      <div className="absolute left-0 top-full pt-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+        <div className="bg-white border border-[#E8E4DF] rounded-xl shadow-2xl min-w-[240px] py-2">
+          <div className="px-3 py-2 border-b border-[#E8E4DF] mb-1">
+            <span className="text-[12px] font-bold uppercase tracking-wider text-[#C0392B]">{label}</span>
           </div>
+          {items.map((item) => (
+            <a
+              key={item}
+              href="#"
+              className="flex items-center gap-2 px-4 py-2.5 text-[13px] font-medium text-zinc-700 hover:text-[#C0392B] hover:bg-zinc-50 transition-colors"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-300" />
+              {item}
+            </a>
+          ))}
+          <a
+            href="#"
+            className="block px-4 py-2.5 mt-1 text-[13px] font-semibold text-[#C0392B] hover:bg-red-50 transition-colors border-t border-[#E8E4DF]"
+          >
+            Tüm {label} İlanları →
+          </a>
         </div>
-      )}
+      </div>
     </div>
   );
 }
