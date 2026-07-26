@@ -4,8 +4,9 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Run & Operate
 
-- Workflow: **artifacts/api-server: API Server** — runs the API server (starts automatically)
-- `pnpm --filter @workspace/api-server run dev` — run the API server manually (requires `PORT=8080`)
+- Workflow: **Project** (run button) — starts both services in parallel
+  - **artifacts/api-server: API Server** — Express API on port 8080, preview at `/api`
+  - **artifacts/mockup-sandbox: Component Preview Server** — React/Vite UI on port 8081, preview at `/__mockup`
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
