@@ -360,11 +360,36 @@ export function Anasayfa() {
         
         {/* Cities */}
         <section className="pb-8">
-          <h2 className="text-[20px] font-bold text-[#1A1A1A] tracking-tight mb-4">Şehrinizde Arama Yapın</h2>
-          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-4 px-4 lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-[20px] font-bold text-[#1A1A1A] tracking-tight">Şehrinizde Arama Yapın</h2>
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  const el = document.getElementById('cities-scroll');
+                  if (el) el.scrollBy({ left: -600, behavior: 'smooth' });
+                }}
+                className="w-9 h-9 rounded-full border border-[#E8E4DF] bg-white flex items-center justify-center text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50 hover:text-[#1A1A1A] transition-all shadow-sm"
+              >
+                <ChevronDown className="w-4 h-4 rotate-90" />
+              </button>
+              <button
+                onClick={() => {
+                  const el = document.getElementById('cities-scroll');
+                  if (el) el.scrollBy({ left: 600, behavior: 'smooth' });
+                }}
+                className="w-9 h-9 rounded-full border border-[#E8E4DF] bg-white flex items-center justify-center text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50 hover:text-[#1A1A1A] transition-all shadow-sm"
+              >
+                <ChevronDown className="w-4 h-4 -rotate-90" />
+              </button>
+            </div>
+          </div>
+          <div
+            id="cities-scroll"
+            className="flex gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          >
             {cities.map((city, i) => (
-              <a href="#" key={i} className="min-w-[150px] border border-[#E8E4DF] rounded-lg overflow-hidden block hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] hover:border-zinc-300 transition-all group bg-white">
-                <div className="w-full h-24 overflow-hidden relative">
+              <a href="#" key={i} className="min-w-[148px] max-w-[148px] border border-[#E8E4DF] rounded-lg overflow-hidden block hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] hover:border-zinc-300 transition-all group bg-white shrink-0">
+                <div className="w-full h-24 overflow-hidden">
                   <img
                     src={`https://picsum.photos/seed/${city.seed}/300/200`}
                     alt={city.name}
