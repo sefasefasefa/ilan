@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   ChevronDown, ShoppingCart, Star, MapPin, 
   Car, Home, Smartphone, Sofa, Shirt, Dumbbell, 
-  Briefcase, PawPrint, GraduationCap, Wrench
+  Briefcase, PawPrint, GraduationCap, Wrench,
+  User, LogIn, Heart, Bell, Settings, LogOut, ClipboardList
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
@@ -44,6 +45,66 @@ const cities = [
 const navCats = ["Tümü", "Araçlar", "Emlak", "Elektronik", "Ev & Bahçe", "Giyim", "Spor", "İş İlanları", "Hayvanlar", "Ders & Kurs", "Hizmetler"];
 const trends = ["iPhone 15", "Kiralık Daire", "2. El Araba", "MacBook", "PS5", "Bisiklet", "Koltuk Takımı", "Arazi Aracı", "Kombi", "Fotoğraf Makinesi"];
 
+function ProfileMenu() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        onClick={() => setOpen(v => !v)}
+        className="flex items-center gap-2 h-9 px-3 rounded-full border border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50 transition-all text-[14px] font-medium text-zinc-700"
+      >
+        <div className="w-7 h-7 rounded-full bg-[#C0392B] flex items-center justify-center text-white">
+          <User className="w-4 h-4" />
+        </div>
+        <span className="hidden sm:block">Hesabım</span>
+        <ChevronDown className={`w-3.5 h-3.5 opacity-50 transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+
+      {open && (
+        <div className="absolute right-0 top-[calc(100%+8px)] w-56 bg-white border border-[#E8E4DF] rounded-xl shadow-lg py-1.5 z-50">
+          {/* User info */}
+          <div className="px-4 py-3 border-b border-[#E8E4DF]">
+            <div className="font-semibold text-[14px] text-[#1A1A1A]">Ahmet Yılmaz</div>
+            <div className="text-[12px] text-zinc-500 mt-0.5">ahmet@example.com</div>
+          </div>
+
+          <div className="py-1">
+            {[
+              { icon: ClipboardList, label: 'İlanlarım' },
+              { icon: Heart,         label: 'Favorilerim' },
+              { icon: Bell,          label: 'Bildirimler', badge: 3 },
+              { icon: Settings,      label: 'Ayarlar' },
+            ].map(({ icon: Icon, label, badge }) => (
+              <button key={label} className="w-full flex items-center gap-3 px-4 py-2.5 text-[13px] font-medium text-zinc-700 hover:bg-zinc-50 hover:text-[#1A1A1A] transition-colors text-left">
+                <Icon className="w-4 h-4 opacity-60 shrink-0" />
+                <span className="flex-1">{label}</span>
+                {badge && <span className="bg-[#C0392B] text-white text-[11px] font-bold rounded-full px-1.5 py-0.5 leading-none">{badge}</span>}
+              </button>
+            ))}
+          </div>
+
+          <div className="border-t border-[#E8E4DF] py-1">
+            <button className="w-full flex items-center gap-3 px-4 py-2.5 text-[13px] font-medium text-red-600 hover:bg-red-50 transition-colors">
+              <LogOut className="w-4 h-4 shrink-0" />
+              Çıkış Yap
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function Anasayfa() {
   const featuredListings = listings.slice(0, 3);
 
@@ -66,9 +127,7 @@ export function Anasayfa() {
                 <ShoppingCart className="w-[22px] h-[22px]" />
                 <span className="absolute top-1.5 right-1 w-2.5 h-2.5 bg-[#C0392B] rounded-full border-2 border-white"></span>
               </button>
-              <Button className="bg-[#C0392B] hover:bg-[#A93226] text-white rounded-full px-6 py-2.5 h-auto text-[14px] font-bold transition-colors shadow-none border-none">
-                İlan Ver
-              </Button>
+              <ProfileMenu />
             </div>
           </div>
         </div>
