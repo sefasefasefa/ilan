@@ -177,23 +177,6 @@ export function Anasayfa() {
           </div>
         </section>
 
-        {/* Category Showcase */}
-        <section>
-          <h2 className="text-[20px] font-bold text-[#1A1A1A] tracking-tight mb-4">Kategoriye Göre Gözat</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-            {mainCategories.map((cat, i) => (
-              <a href="#" key={i} className="bg-white border border-[#E8E4DF] rounded-lg p-4 flex items-center gap-3 hover:border-zinc-300 hover:shadow-[0_1px_3px_rgba(0,0,0,0.08)] transition-all group">
-                <div className="w-11 h-11 rounded-md bg-zinc-50 border border-zinc-100 flex items-center justify-center shrink-0 group-hover:bg-[#F7F5F2] group-hover:border-[#E8E4DF] transition-colors">
-                  <cat.icon className="w-[22px] h-[22px] text-[#1A1A1A] opacity-80 group-hover:opacity-100 group-hover:text-[#C0392B] transition-colors" strokeWidth={2} />
-                </div>
-                <div className="flex flex-col min-w-0">
-                  <span className="font-semibold text-[14px] text-[#1A1A1A] truncate">{cat.name}</span>
-                  <span className="text-[12px] text-zinc-500 font-medium mt-0.5">{cat.count} ilan</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
 
         {/* Recently Listed Grid */}
         <section>
