@@ -52,57 +52,60 @@ export function Anasayfa() {
       {/* Main Header — sticky, includes utility bar + logo/search row */}
       <header className="sticky top-0 z-50 shadow-sm">
 
-        {/* Logo / Search row */}
+        {/* Logo / Actions row */}
         <div className="bg-white border-b border-[#E8E4DF]">
-        <div className="max-w-[1400px] mx-auto px-4 lg:px-8 h-[72px] flex items-center justify-between gap-4 lg:gap-8">
-          {/* Logo */}
-          <a href="#" className="text-[28px] font-extrabold tracking-tight text-[#1A1A1A] shrink-0 pb-1">
-            <span className="text-[#C0392B]">ç</span>arşı
-          </a>
-          
-          {/* Search */}
-          <div className="hidden md:flex flex-1 max-w-3xl border-2 border-[#1A1A1A] rounded overflow-hidden h-10 focus-within:ring-2 focus-within:ring-[#C0392B]/20 focus-within:border-[#C0392B] transition-all">
-            <button className="bg-zinc-100 px-4 border-r border-[#1A1A1A] flex items-center gap-2 text-[13px] font-semibold text-zinc-800 hover:bg-zinc-200 transition-colors shrink-0">
-              Kategori <ChevronDown className="w-3.5 h-3.5 opacity-60" />
-            </button>
-            <input 
-              type="text" 
-              placeholder="Ne arıyorsunuz?" 
-              className="flex-1 px-4 text-[14px] outline-none min-w-0 font-medium placeholder:text-zinc-400 placeholder:font-normal" 
-            />
-            <button className="bg-[#1A1A1A] text-white px-8 font-semibold text-[14px] hover:bg-black transition-colors">
-              Ara
-            </button>
-          </div>
-          
-          {/* Actions */}
-          <div className="flex items-center gap-4 shrink-0">
-            <button className="relative p-2 text-zinc-700 hover:text-[#1A1A1A] hover:bg-zinc-100 rounded-full transition-colors hidden sm:block">
-              <ShoppingCart className="w-[22px] h-[22px]" />
-              <span className="absolute top-1.5 right-1 w-2.5 h-2.5 bg-[#C0392B] rounded-full border-2 border-white"></span>
-            </button>
-            <Button className="bg-[#C0392B] hover:bg-[#A93226] text-white rounded-full px-6 py-2.5 h-auto text-[14px] font-bold transition-colors shadow-none border-none">
-              İlan Ver
-            </Button>
+          <div className="max-w-[1400px] mx-auto px-4 lg:px-8 h-[64px] flex items-center justify-between gap-4 lg:gap-8">
+            {/* Logo */}
+            <a href="#" className="text-[28px] font-extrabold tracking-tight text-[#1A1A1A] shrink-0 pb-1">
+              <span className="text-[#C0392B]">ç</span>arşı
+            </a>
+
+            {/* Actions */}
+            <div className="flex items-center gap-4 shrink-0">
+              <button className="relative p-2 text-zinc-700 hover:text-[#1A1A1A] hover:bg-zinc-100 rounded-full transition-colors hidden sm:block">
+                <ShoppingCart className="w-[22px] h-[22px]" />
+                <span className="absolute top-1.5 right-1 w-2.5 h-2.5 bg-[#C0392B] rounded-full border-2 border-white"></span>
+              </button>
+              <Button className="bg-[#C0392B] hover:bg-[#A93226] text-white rounded-full px-6 py-2.5 h-auto text-[14px] font-bold transition-colors shadow-none border-none">
+                İlan Ver
+              </Button>
+            </div>
           </div>
         </div>
-        {/* Mobile Search - visible only on small screens */}
-        <div className="md:hidden px-4 pb-3">
-           <div className="flex border-2 border-[#1A1A1A] rounded overflow-hidden h-11">
-            <input 
-              type="text" 
-              placeholder="Ne arıyorsunuz?" 
-              className="flex-1 px-3 text-[14px] outline-none min-w-0 font-medium placeholder:font-normal placeholder:text-zinc-400" 
-            />
-            <button className="bg-[#1A1A1A] text-white px-5 font-semibold text-[14px]">
-              Ara
-            </button>
+
+        {/* Search row — sits just above the category nav */}
+        <div className="bg-white border-b border-[#E8E4DF] py-3">
+          <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
+            {/* Desktop search */}
+            <div className="hidden md:flex border-2 border-[#1A1A1A] rounded overflow-hidden h-11 focus-within:ring-2 focus-within:ring-[#C0392B]/20 focus-within:border-[#C0392B] transition-all">
+              <button className="bg-zinc-100 px-4 border-r border-[#1A1A1A] flex items-center gap-2 text-[13px] font-semibold text-zinc-800 hover:bg-zinc-200 transition-colors shrink-0">
+                Kategori <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+              </button>
+              <input
+                type="text"
+                placeholder="Ne arıyorsunuz?"
+                className="flex-1 px-4 text-[14px] outline-none min-w-0 font-medium placeholder:text-zinc-400 placeholder:font-normal"
+              />
+              <button className="bg-[#1A1A1A] text-white px-8 font-semibold text-[14px] hover:bg-black transition-colors">
+                Ara
+              </button>
+            </div>
+            {/* Mobile search */}
+            <div className="flex md:hidden border-2 border-[#1A1A1A] rounded overflow-hidden h-11">
+              <input
+                type="text"
+                placeholder="Ne arıyorsunuz?"
+                className="flex-1 px-3 text-[14px] outline-none min-w-0 font-medium placeholder:font-normal placeholder:text-zinc-400"
+              />
+              <button className="bg-[#1A1A1A] text-white px-5 font-semibold text-[14px]">
+                Ara
+              </button>
+            </div>
           </div>
         </div>
-        </div>{/* end logo/search row */}
-      </header>
-      {/* Category Nav Bar */}
-      <nav className="bg-white border-b border-[#E8E4DF]">
+
+        {/* Category Nav Bar */}
+        <nav className="bg-white border-b border-[#E8E4DF]">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
           <div className="flex gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {navCats.map((nc, i) => (
@@ -115,7 +118,8 @@ export function Anasayfa() {
             ))}
           </div>
         </div>
-      </nav>
+        </nav>
+      </header>
       <main className="max-w-[1400px] mx-auto px-4 lg:px-8 py-8 space-y-12">
         
         {/* Hero Section */}
