@@ -6,6 +6,92 @@ import {
   User, Heart, Bell, Settings, LogOut, ClipboardList
 } from 'lucide-react';
 
+type NavGroup = { title: string; items: string[] };
+type NavCategory = { name: string; groups: NavGroup[] };
+
+const navCategories: NavCategory[] = [
+  {
+    name: "Araçlar",
+    groups: [
+      { title: "Popüler Markalar", items: ["BMW", "Mercedes-Benz", "Toyota", "Volkswagen", "Ford", "Renault", "Fiat", "Honda", "Hyundai", "Audi", "Dacia", "Opel"] },
+      { title: "Araç Tipi", items: ["Otomobil", "SUV & Crossover", "Pickup & Ticari", "Motosiklet", "Scooter", "Bisiklet", "Elektrikli Araç", "Minibüs & Midibüs"] },
+      { title: "Diğer", items: ["Yedek Parça & Aksesuar", "Kiralık Araç", "Klasik & Koleksiyon", "Tekne & Yat", "Karavan", "Tarım Araçları"] },
+    ]
+  },
+  {
+    name: "Emlak",
+    groups: [
+      { title: "Satılık", items: ["Satılık Daire", "Satılık Villa", "Satılık Müstakil", "Satılık Arsa", "Satılık Tarla", "Satılık Bina", "Devremülk"] },
+      { title: "Kiralık", items: ["Kiralık Daire", "Kiralık Villa", "Kiralık Yazlık", "Günlük Kiralık", "Oda & Kiracı Aranıyor", "Ofis & Büro Kiralık"] },
+      { title: "İş Yeri", items: ["Satılık Ofis", "Kiralık Ofis", "Satılık Dükkan", "Kiralık Dükkan", "Depo & Antrepo", "Satılık Arazi"] },
+    ]
+  },
+  {
+    name: "Elektronik",
+    groups: [
+      { title: "Telefon & Tablet", items: ["Cep Telefonu", "Tablet", "Akıllı Saat & Band", "Bluetooth Kulaklık", "Şarj Aleti & Kablo", "Telefon Kılıfı"] },
+      { title: "Bilgisayar", items: ["Laptop & Notebook", "Masaüstü PC", "Ekran & Monitör", "Klavye & Mouse", "SSD & Hard Disk", "Grafik Kartı & İşlemci"] },
+      { title: "Eğlence & Görüntü", items: ["Oyun Konsolu", "Oyun", "TV & Smart TV", "Projeksiyon", "Hoparlör & Soundbar", "Kamera & Fotoğraf Makinesi"] },
+    ]
+  },
+  {
+    name: "Ev & Bahçe",
+    groups: [
+      { title: "Mobilya", items: ["Koltuk & Kanepe", "Yatak & Yatak Odası", "Yemek Masası & Sandalye", "Çalışma Masası", "Dolap & Gardırop", "Çocuk Mobilyası"] },
+      { title: "Mutfak & Banyo", items: ["Bulaşık Makinesi", "Çamaşır Makinesi", "Buzdolabı & Derin Dondurucu", "Fırın & Ocak", "Ankastre Ürünler", "Banyo Donanımı"] },
+      { title: "Dekorasyon & Bahçe", items: ["Aydınlatma & Lamba", "Halı & Kilim", "Perde & Stor Perde", "Tablo & Çerçeve", "Saksı & Bahçe Bitkisi", "Bahçe Mobilyası"] },
+    ]
+  },
+  {
+    name: "Giyim",
+    groups: [
+      { title: "Kadın", items: ["Elbise & Etek", "Bluz & Gömlek", "Pantolon & Jean", "Dış Giyim & Mont", "Pijama & İç Giyim", "Hamile Giyim"] },
+      { title: "Erkek", items: ["Takım Elbise & Gömlek", "T-Shirt & Sweatshirt", "Pantolon & Jean", "Dış Giyim & Kaban", "Spor Giyim", "İş Giyim"] },
+      { title: "Aksesuar & Ayakkabı", items: ["Bayan Ayakkabı", "Erkek Ayakkabı", "Çanta & Çantacılık", "Kemer & Cüzdan", "Saat", "Takı & Mücevher"] },
+    ]
+  },
+  {
+    name: "Spor",
+    groups: [
+      { title: "Kondisyon & Fitness", items: ["Koşu Bandı", "Bisiklet", "Dumbbell & Ağırlık", "Yoga & Pilates", "Boks & Dövüş Sporları", "Fitness Aksesuar"] },
+      { title: "Outdoor & Doğa", items: ["Kamp Ekipmanı", "Dağcılık & Trekking", "Avcılık & Balıkçılık", "Su Sporları & Yüzme", "Kayak & Snowboard", "Olta & Misina"] },
+      { title: "Takım Sporları", items: ["Futbol", "Basketbol", "Tenis & Padel", "Voleybol", "Golf", "Masa Tenisi"] },
+    ]
+  },
+  {
+    name: "İş İlanları",
+    groups: [
+      { title: "Tam Zamanlı", items: ["Yazılım & IT", "Mühendislik", "Finans & Muhasebe", "Satış & Pazarlama", "Sağlık & Eczacılık", "Eğitim & Öğretmenlik"] },
+      { title: "Esnek Çalışma", items: ["Yarı Zamanlı", "Freelance & Proje İşi", "Staj Fırsatları", "Uzaktan Çalışma", "Hafta Sonu İşi", "Sezonluk İş"] },
+      { title: "Sektörler", items: ["Lojistik & Depo", "İnşaat & Tesisat", "Güvenlik", "Turizm & Otel", "Medya & Reklam", "Hukuk & Danışmanlık"] },
+    ]
+  },
+  {
+    name: "Hayvanlar",
+    groups: [
+      { title: "Evcil Hayvan", items: ["Kedi", "Köpek", "Kuş & Papağan", "Balık & Akvaryum", "Hamster & Kemirgen", "Sürüngen"] },
+      { title: "Ürünler", items: ["Mama & Katkı Ürünleri", "Tasma & Giysi", "Kafes & Kulübe", "Oyuncak", "Sağlık & İlaç", "Akvaryum Malzemeleri"] },
+      { title: "Hizmetler", items: ["Veteriner", "Hayvan Eğitimi", "Pet Kuaför & Bakım", "Pansiyonat", "Kayıp & Bulundu", "Eş Arıyorum"] },
+    ]
+  },
+  {
+    name: "Ders & Kurs",
+    groups: [
+      { title: "Akademik", items: ["Matematik", "Fen Bilimleri & Fizik", "Türkçe & Edebiyat", "Tarih & Coğrafya", "Sınav Hazırlık (YKS/LGS)", "İlkokul Dersleri"] },
+      { title: "Dil & Sanat", items: ["İngilizce", "Almanca & Fransızca", "Müzik Aleti", "Resim & El Sanatları", "Dans & Bale", "Fotoğrafçılık"] },
+      { title: "Mesleki & Teknik", items: ["Yazılım & Kodlama", "Grafik Tasarım", "Dijital Pazarlama", "Sürücü Kursu", "Güzellik & Estetik", "Aşçılık & Pastacılık"] },
+    ]
+  },
+  {
+    name: "Hizmetler",
+    groups: [
+      { title: "Ev & Tadilat", items: ["Temizlik Hizmetleri", "Tadilat & Boyacı", "Nakliyat & Taşıma", "Tesisatçı & Elektrikçi", "Çilingir", "Bahçe & Peyzaj"] },
+      { title: "Kişisel", items: ["Güzellik & Kuaför", "Özel Ders", "Masaj & Terapi", "Fotoğraf & Video Çekim", "Düğün & Organizasyon", "Bebek Bakıcısı"] },
+      { title: "Profesyonel", items: ["Hukuk & Avukatlık", "Mali Müşavirlik", "Mühendislik Danışmanlığı", "Web & Yazılım Geliştirme", "Çeviri Hizmetleri", "Catering"] },
+    ]
+  },
+];
+
 const listings = [
   { id: 1, title: "2021 Toyota Corolla 1.8 Hybrid", price: "485.000 ₺", location: "Kadıköy, İstanbul", date: "2 saat önce", img: "https://picsum.photos/seed/corolla1/400/300", featured: true },
   { id: 2, title: "3+1 Satılık Daire, 120m²", price: "3.200.000 ₺", location: "Çankaya, Ankara", date: "5 saat önce", img: "https://picsum.photos/seed/ev2/400/300", featured: true },
@@ -17,20 +103,6 @@ const listings = [
   { id: 8, title: "Trek Marlin 7 Dağ Bisikleti", price: "24.500 ₺", location: "Muratpaşa, Antalya", date: "2 gün önce", img: "https://picsum.photos/seed/trek8/400/300" },
   { id: 9, title: "Sony PlayStation 5 + 3 Oyun", price: "15.000 ₺", location: "Nilüfer, Bursa", date: "6 saat önce", img: "https://picsum.photos/seed/ps9/400/300" },
   { id: 10, title: "Canon EOS R50 Fotoğraf Makinesi", price: "28.000 ₺", location: "Altındağ, Ankara", date: "12 saat önce", img: "https://picsum.photos/seed/canon10/400/300" },
-];
-
-const navCategories = [
-  { name: "Tümü", sub: ["Son İlanlar", "Vitrin İlanlar", "Fiyatı Düşenler", "Acil Satılık"] },
-  { name: "Araçlar", sub: ["Otomobil", "SUV & Pick-up", "Ticari Araçlar", "Motosiklet", "Bisiklet", "Yedek Parça", "Kiralık Araç", "Klasik Araç"] },
-  { name: "Emlak", sub: ["Satılık Daire", "Kiralık Daire", "Satılık Villa", "Kiralık Villa", "İş Yeri", "Arsa", "Yazlık", "Devremülk"] },
-  { name: "Elektronik", sub: ["Cep Telefonu", "Bilgisayar", "Tablet", "Kamera", "Oyun Konsolu", "TV & Ses", "Beyaz Eşya", "Aksesuar"] },
-  { name: "Ev & Bahçe", sub: ["Mobilya", "Dekorasyon", "Mutfak", "Banyo", "Elektrikli Ev Aletleri", "Bahçe", "Aydınlatma", "El Aletleri"] },
-  { name: "Giyim", sub: ["Erkek Giyim", "Kadın Giyim", "Çocuk Giyim", "Ayakkabı", "Çanta", "Aksesuar", "Saat", "Güneş Gözlüğü"] },
-  { name: "Spor", sub: ["Fitness", "Kamp & Outdoor", "Bisiklet", "Koşu", "Yüzme", "Top Sporları", "Kış Sporları", "Avcılık"] },
-  { name: "İş İlanları", sub: ["Tam Zamanlı", "Yarı Zamanlı", "Freelance", "Staj", "Uzaktan Çalışma", "Satış Pazarlama", "Mühendislik", "Sağlık"] },
-  { name: "Hayvanlar", sub: ["Kedi", "Köpek", "Kuş", "Balık", "Küçük Hayvanlar", "Bakım Ürünleri", "Mama", "Eş Arayanlar"] },
-  { name: "Ders & Kurs", sub: ["Matematik", "Dil Kursu", "Müzik", "Yazılım", "Spor Dersi", "Sürücü Kursu", "Sınav Hazırlık", "Online Eğitim"] },
-  { name: "Hizmetler", sub: ["Nakliyat", "Temizlik", "Tamir & Bakım", "Güzellik", "Danışmanlık", "Fotoğrafçılık", "Catering", "Özel Ders"] },
 ];
 
 const mainCategories = [
@@ -66,50 +138,91 @@ const cities = [
 
 const trends = ["iPhone 15", "Kiralık Daire", "2. El Araba", "MacBook", "PS5", "Bisiklet", "Koltuk Takımı", "Arazi Aracı", "Kombi", "Fotoğraf Makinesi"];
 
-function MegaMenu({ label, items }: { label: string; items: string[] }) {
-  const [open, setOpen] = useState(false);
+function CategoryNav() {
+  const [active, setActive] = useState<string | null>(null);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const activeCat = navCategories.find(c => c.name === active) ?? null;
 
-  const handleEnter = () => {
+  const show = (name: string) => {
     if (hideTimer.current) clearTimeout(hideTimer.current);
-    setOpen(true);
+    setActive(name);
   };
-  const handleLeave = () => {
-    hideTimer.current = setTimeout(() => setOpen(false), 120);
+  const hide = () => {
+    hideTimer.current = setTimeout(() => setActive(null), 150);
+  };
+  const cancelHide = () => {
+    if (hideTimer.current) clearTimeout(hideTimer.current);
   };
 
   return (
-    <div onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="relative">
-      <button
-        className={`shrink-0 whitespace-nowrap py-3.5 font-medium text-base border-b-[3px] transition-colors flex items-center gap-1 ${
-          open ? 'text-[#C0392B] border-[#C0392B]' : 'text-zinc-600 border-transparent hover:text-[#1A1A1A]'
-        }`}
-      >
-        {label}
-        <ChevronDown className={`w-3.5 h-3.5 opacity-50 transition-transform ${open ? 'rotate-180' : ''}`} />
-      </button>
+    <nav className="bg-white border-b border-[#E8E4DF] relative" onMouseLeave={hide}>
+      {/* Tab row */}
+      <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
+        <div className="flex gap-6 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {/* "Tümü" — static, no dropdown */}
+          <button className="shrink-0 whitespace-nowrap py-3.5 font-semibold text-base border-b-[3px] text-[#C0392B] border-[#C0392B]">
+            Tümü
+          </button>
 
-      {open && (
-        <div
-          className="absolute left-0 top-full z-50 bg-white border border-[#E8E4DF] rounded-xl shadow-xl min-w-[220px] py-2"
-          onMouseEnter={handleEnter}
-          onMouseLeave={handleLeave}
-        >
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[#C0392B] px-4 pt-2 pb-1">{label}</p>
-          {items.map(item => (
-            <a key={item} href="#" className="flex items-center gap-2 px-4 py-2 text-[13px] font-medium text-zinc-700 hover:text-[#C0392B] hover:bg-zinc-50 transition-colors">
-              <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 shrink-0" />
-              {item}
-            </a>
+          {navCategories.map(cat => (
+            <button
+              key={cat.name}
+              onMouseEnter={() => show(cat.name)}
+              className={`shrink-0 whitespace-nowrap py-3.5 font-medium text-base border-b-[3px] transition-colors flex items-center gap-1 ${
+                active === cat.name
+                  ? 'text-[#C0392B] border-[#C0392B]'
+                  : 'text-zinc-600 border-transparent hover:text-[#1A1A1A]'
+              }`}
+            >
+              {cat.name}
+              <ChevronDown className={`w-3.5 h-3.5 opacity-40 transition-transform ${active === cat.name ? 'rotate-180' : ''}`} />
+            </button>
           ))}
-          <div className="border-t border-[#E8E4DF] mt-1 pt-1 px-4 pb-1">
-            <a href="#" className="text-[12px] font-semibold text-[#C0392B] hover:underline">
-              Tüm {label} →
-            </a>
+        </div>
+      </div>
+
+      {/* Full-width mega panel */}
+      {active && activeCat && (
+        <div
+          className="absolute left-0 right-0 top-full z-50 bg-white border-b border-[#E8E4DF] shadow-2xl"
+          onMouseEnter={cancelHide}
+          onMouseLeave={hide}
+        >
+          <div className="max-w-[1400px] mx-auto px-4 lg:px-8 py-6">
+            {/* Group columns */}
+            <div className="grid gap-8" style={{ gridTemplateColumns: `repeat(${activeCat.groups.length}, 1fr)` }}>
+              {activeCat.groups.map(group => (
+                <div key={group.title}>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#C0392B] mb-3">
+                    {group.title}
+                  </p>
+                  <ul className="space-y-0.5">
+                    {group.items.map(item => (
+                      <li key={item}>
+                        <a
+                          href="#"
+                          className="flex items-center gap-2 py-1.5 text-[13px] font-medium text-zinc-700 hover:text-[#C0392B] transition-colors group/item"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 group-hover/item:bg-[#C0392B] transition-colors shrink-0" />
+                          {item}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            {/* Footer link */}
+            <div className="mt-5 pt-4 border-t border-[#E8E4DF]">
+              <a href="#" className="text-[13px] font-semibold text-[#C0392B] hover:underline">
+                Tüm {active} İlanlarını Gör →
+              </a>
+            </div>
           </div>
         </div>
       )}
-    </div>
+    </nav>
   );
 }
 
@@ -210,24 +323,7 @@ export function Anasayfa() {
           </div>
         </div>
 
-        {/* Category Nav */}
-        <nav className="bg-white border-b border-[#E8E4DF] relative">
-          <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
-            <div className="flex gap-6 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              {navCategories.map((cat, i) => (
-                i === 0 ? (
-                  <button key={cat.name} className="shrink-0 whitespace-nowrap py-3.5 transition-colors font-semibold text-base border-b-[3px] text-[#C0392B] border-[#C0392B]">
-                    {cat.name}
-                  </button>
-                ) : (
-                  <div key={cat.name} className="shrink-0">
-                    <MegaMenu label={cat.name} items={cat.sub} />
-                  </div>
-                )
-              ))}
-            </div>
-          </div>
-        </nav>
+        <CategoryNav />
       </header>
 
       <main className="max-w-[1400px] mx-auto px-4 lg:px-8 py-8 space-y-12">
