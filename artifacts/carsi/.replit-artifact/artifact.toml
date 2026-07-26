@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Çarşı"
+version = "1.0.0"
+id = "artifacts/carsi"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20206
+
+[services.development]
+run = "pnpm --filter @workspace/carsi run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/carsi", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/carsi/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20206"
+BASE_PATH = "/"
