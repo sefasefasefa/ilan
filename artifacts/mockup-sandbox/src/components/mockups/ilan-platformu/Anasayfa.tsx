@@ -117,8 +117,95 @@ const cities = [
   { name: "Bayburt",         count: "500+ ilan",     seed: "bayburt"         },
 ];
 
-const navCats = ["Tümü", "Araçlar", "Emlak", "Elektronik", "Ev & Bahçe", "Giyim", "Spor", "İş İlanları", "Hayvanlar", "Ders & Kurs", "Hizmetler"];
+const navCategories = [
+  {
+    name: "Tümü",
+    sub: ["Son İlanlar", "Vitrin İlanlar", "Fiyatı Düşenler", "Acil Satılık"],
+  },
+  {
+    name: "Araçlar",
+    sub: ["Otomobil", "SUV & Pick-up", "Ticari Araçlar", "Motosiklet", "Bisiklet", "Yedek Parça", "Kiralık Araç", "Klasik Araç"],
+  },
+  {
+    name: "Emlak",
+    sub: ["Satılık Daire", "Kiralık Daire", "Satılık Villa", "Kiralık Villa", "İş Yeri", "Arsa", "Yazlık", "Devremülk"],
+  },
+  {
+    name: "Elektronik",
+    sub: ["Cep Telefonu", "Bilgisayar", "Tablet", "Kamera", "Oyun Konsolu", "TV & Ses", "Beyaz Eşya", "Aksesuar"],
+  },
+  {
+    name: "Ev & Bahçe",
+    sub: ["Mobilya", "Dekorasyon", "Mutfak", "Banyo", "Elektrikli Ev Aletleri", "Bahçe", "Aydınlatma", "El Aletleri"],
+  },
+  {
+    name: "Giyim",
+    sub: ["Erkek Giyim", "Kadın Giyim", "Çocuk Giyim", "Ayakkabı", "Çanta", "Aksesuar", "Saat", "Güneş Gözlüğü"],
+  },
+  {
+    name: "Spor",
+    sub: ["Fitness", "Kamp & Outdoor", "Bisiklet", "Koşu", "Yüzme", "Top Sporları", "Kış Sporları", "Avcılık"],
+  },
+  {
+    name: "İş İlanları",
+    sub: ["Tam Zamanlı", "Yarı Zamanlı", "Freelance", "Staj", "Uzaktan Çalışma", "Satış Pazarlama", "Mühendislik", "Sağlık"],
+  },
+  {
+    name: "Hayvanlar",
+    sub: ["Kedi", "Köpek", "Kuş", "Balık", "Küçük Hayvanlar", "Bakım Ürünleri", "Mama", "Eş Arayanlar"],
+  },
+  {
+    name: "Ders & Kurs",
+    sub: ["Matematik", "Dil Kursu", "Müzik", "Yazılım", "Spor Dersi", "Sürücü Kursu", "Sınav Hazırlık", "Online Eğitim"],
+  },
+  {
+    name: "Hizmetler",
+    sub: ["Nakliyat", "Temizlik", "Tamir & Bakım", "Güzellik", "Danışmanlık", "Fotoğrafçılık", "Catering", "Özel Ders"],
+  },
+];
 const trends = ["iPhone 15", "Kiralık Daire", "2. El Araba", "MacBook", "PS5", "Bisiklet", "Koltuk Takımı", "Arazi Aracı", "Kombi", "Fotoğraf Makinesi"];
+
+function MegaMenu({ label, items }: { label: string; items: string[] }) {
+  const [open, setOpen] = useState(false);
+  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const show = () => {
+    if (timeout.current) clearTimeout(timeout.current);
+    setOpen(true);
+  };
+
+  const hide = () => {
+    timeout.current = setTimeout(() => setOpen(false), 150);
+  };
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={show}
+      onMouseLeave={hide}
+    >
+      <button className="whitespace-nowrap py-3.5 transition-colors font-medium text-base border-b-[3px] border-transparent text-zinc-600 hover:text-[#1A1A1A] hover:border-[#C0392B]/30">
+        {label}
+      </button>
+
+      {open && (
+        <div className="absolute left-0 top-full pt-2 z-40">
+          <div className="bg-white border border-[#E8E4DF] rounded-xl shadow-xl min-w-[220px] py-2">
+            {items.map((item) => (
+              <a
+                key={item}
+                href="#"
+                className="block px-4 py-2 text-[13px] font-medium text-zinc-700 hover:text-[#C0392B] hover:bg-zinc-50 transition-colors"
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function ProfileMenu() {
   const [open, setOpen] = useState(false);
@@ -238,20 +325,24 @@ export function Anasayfa() {
           </div>
         </div>
 
-        {/* Category Nav Bar */}
+        {/* Category Nav Bar with mega menus */}
         <nav className="bg-white border-b border-[#E8E4DF]">
-        <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
-          <div className="flex gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {navCats.map((nc, i) => (
-              <button 
-                key={nc} 
-                className={`whitespace-nowrap py-3.5 transition-colors font-medium text-base border-b-[3px] ${i === 0 ? 'text-[#C0392B] border-[#C0392B] font-semibold' : 'text-zinc-600 hover:text-[#1A1A1A] border-transparent'}`}
-              >
-                {nc}
-              </button>
-            ))}
+          <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
+            <div className="flex gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              {navCategories.map((cat, i) => (
+                i === 0 ? (
+                  <button
+                    key={cat.name}
+                    className="whitespace-nowrap py-3.5 transition-colors font-medium text-base border-b-[3px] text-[#C0392B] border-[#C0392B] font-semibold"
+                  >
+                    {cat.name}
+                  </button>
+                ) : (
+                  <MegaMenu key={cat.name} label={cat.name} items={cat.sub} />
+                )
+              ))}
+            </div>
           </div>
-        </div>
         </nav>
       </header>
       <main className="max-w-[1400px] mx-auto px-4 lg:px-8 py-8 space-y-12">
