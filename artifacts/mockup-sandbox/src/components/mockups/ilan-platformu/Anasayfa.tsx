@@ -34,12 +34,87 @@ const mainCategories = [
 ];
 
 const cities = [
-  { name: "İstanbul", count: "450.000+ ilan", color: "bg-blue-600" },
-  { name: "Ankara", count: "120.000+ ilan", color: "bg-red-600" },
-  { name: "İzmir", count: "95.000+ ilan", color: "bg-teal-600" },
-  { name: "Bursa", count: "65.000+ ilan", color: "bg-emerald-600" },
-  { name: "Antalya", count: "55.000+ ilan", color: "bg-orange-500" },
-  { name: "Adana", count: "30.000+ ilan", color: "bg-indigo-600" }
+  { name: "İstanbul",        count: "450.000+ ilan", seed: "istanbul"        },
+  { name: "Ankara",          count: "120.000+ ilan", seed: "ankara"          },
+  { name: "İzmir",           count: "95.000+ ilan",  seed: "izmir"           },
+  { name: "Bursa",           count: "65.000+ ilan",  seed: "bursa"           },
+  { name: "Antalya",         count: "55.000+ ilan",  seed: "antalya"         },
+  { name: "Adana",           count: "30.000+ ilan",  seed: "adana"           },
+  { name: "Konya",           count: "28.000+ ilan",  seed: "konya"           },
+  { name: "Gaziantep",       count: "25.000+ ilan",  seed: "gaziantep"       },
+  { name: "Şanlıurfa",       count: "18.000+ ilan",  seed: "sanliurfa"       },
+  { name: "Kocaeli",         count: "22.000+ ilan",  seed: "kocaeli"         },
+  { name: "Mersin",          count: "20.000+ ilan",  seed: "mersin"          },
+  { name: "Diyarbakır",      count: "15.000+ ilan",  seed: "diyarbakir"      },
+  { name: "Hatay",           count: "14.000+ ilan",  seed: "hatay"           },
+  { name: "Manisa",          count: "13.000+ ilan",  seed: "manisa"          },
+  { name: "Kayseri",         count: "18.000+ ilan",  seed: "kayseri"         },
+  { name: "Samsun",          count: "16.000+ ilan",  seed: "samsun"          },
+  { name: "Balıkesir",       count: "12.000+ ilan",  seed: "balikesir"       },
+  { name: "Tekirdağ",        count: "11.000+ ilan",  seed: "tekirdag"        },
+  { name: "Sakarya",         count: "10.000+ ilan",  seed: "sakarya"         },
+  { name: "Denizli",         count: "10.000+ ilan",  seed: "denizli"         },
+  { name: "Trabzon",         count: "9.500+ ilan",   seed: "trabzon"         },
+  { name: "Eskişehir",       count: "9.000+ ilan",   seed: "eskisehir"       },
+  { name: "Muğla",           count: "12.000+ ilan",  seed: "mugla"           },
+  { name: "Mardin",          count: "7.000+ ilan",   seed: "mardin"          },
+  { name: "Aydın",           count: "8.500+ ilan",   seed: "aydin"           },
+  { name: "Van",             count: "8.000+ ilan",   seed: "van"             },
+  { name: "Malatya",         count: "8.000+ ilan",   seed: "malatya"         },
+  { name: "Kahramanmaraş",   count: "7.500+ ilan",   seed: "kahramanmaras"   },
+  { name: "Erzurum",         count: "6.500+ ilan",   seed: "erzurum"         },
+  { name: "Ordu",            count: "6.000+ ilan",   seed: "ordu"            },
+  { name: "Afyonkarahisar",  count: "5.500+ ilan",   seed: "afyon"           },
+  { name: "Elazığ",          count: "5.500+ ilan",   seed: "elazig"          },
+  { name: "Çanakkale",       count: "5.000+ ilan",   seed: "canakkale"       },
+  { name: "Adıyaman",        count: "4.500+ ilan",   seed: "adiyaman"        },
+  { name: "Isparta",         count: "4.000+ ilan",   seed: "isparta"         },
+  { name: "Giresun",         count: "4.000+ ilan",   seed: "giresun"         },
+  { name: "Tokat",           count: "3.800+ ilan",   seed: "tokat"           },
+  { name: "Çorum",           count: "3.800+ ilan",   seed: "corum"           },
+  { name: "Zonguldak",       count: "3.500+ ilan",   seed: "zonguldak"       },
+  { name: "Kırıkkale",       count: "3.200+ ilan",   seed: "kirikkale"       },
+  { name: "Nevşehir",        count: "4.500+ ilan",   seed: "nevsehir"        },
+  { name: "Şırnak",          count: "3.000+ ilan",   seed: "sirnak"          },
+  { name: "Batman",          count: "3.000+ ilan",   seed: "batman"          },
+  { name: "Kastamonu",       count: "2.800+ ilan",   seed: "kastamonu"       },
+  { name: "Edirne",          count: "3.200+ ilan",   seed: "edirne"          },
+  { name: "Muş",             count: "2.500+ ilan",   seed: "mus"             },
+  { name: "Bolu",            count: "2.800+ ilan",   seed: "bolu"            },
+  { name: "Kütahya",         count: "3.200+ ilan",   seed: "kutahya"         },
+  { name: "Sivas",           count: "3.500+ ilan",   seed: "sivas"           },
+  { name: "Aksaray",         count: "3.000+ ilan",   seed: "aksaray"         },
+  { name: "Niğde",           count: "2.500+ ilan",   seed: "nigde"           },
+  { name: "Amasya",          count: "2.200+ ilan",   seed: "amasya"          },
+  { name: "Uşak",            count: "2.400+ ilan",   seed: "usak"            },
+  { name: "Rize",            count: "2.500+ ilan",   seed: "rize"            },
+  { name: "Kırklareli",      count: "2.400+ ilan",   seed: "kirklareli"      },
+  { name: "Kırşehir",        count: "1.800+ ilan",   seed: "kirsehir"        },
+  { name: "Karaman",         count: "2.000+ ilan",   seed: "karaman"         },
+  { name: "Sinop",           count: "1.600+ ilan",   seed: "sinop"           },
+  { name: "Yozgat",          count: "2.000+ ilan",   seed: "yozgat"          },
+  { name: "Karabük",         count: "1.900+ ilan",   seed: "karabuk"         },
+  { name: "Düzce",           count: "2.200+ ilan",   seed: "duzce"           },
+  { name: "Bilecik",         count: "1.700+ ilan",   seed: "bilecik"         },
+  { name: "Burdur",          count: "1.700+ ilan",   seed: "burdur"          },
+  { name: "Yalova",          count: "2.000+ ilan",   seed: "yalova"          },
+  { name: "Çankırı",         count: "1.400+ ilan",   seed: "cankiri"         },
+  { name: "Kilis",           count: "1.200+ ilan",   seed: "kilis"           },
+  { name: "Osmaniye",        count: "2.200+ ilan",   seed: "osmaniye"        },
+  { name: "Siirt",           count: "1.500+ ilan",   seed: "siirt"           },
+  { name: "Bitlis",          count: "1.400+ ilan",   seed: "bitlis"          },
+  { name: "Erzincan",        count: "1.800+ ilan",   seed: "erzincan"        },
+  { name: "Ağrı",            count: "2.000+ ilan",   seed: "agri"            },
+  { name: "Bingöl",          count: "1.300+ ilan",   seed: "bingol"          },
+  { name: "Artvin",          count: "1.200+ ilan",   seed: "artvin"          },
+  { name: "Tunceli",         count: "700+ ilan",     seed: "tunceli"         },
+  { name: "Gümüşhane",       count: "900+ ilan",     seed: "gumushane"       },
+  { name: "Hakkari",         count: "800+ ilan",     seed: "hakkari"         },
+  { name: "Kars",            count: "1.200+ ilan",   seed: "kars"            },
+  { name: "Iğdır",           count: "900+ ilan",     seed: "igdir"           },
+  { name: "Bartın",          count: "1.100+ ilan",   seed: "bartin"          },
+  { name: "Ardahan",         count: "600+ ilan",     seed: "ardahan"         },
+  { name: "Bayburt",         count: "500+ ilan",     seed: "bayburt"         },
 ];
 
 const navCats = ["Tümü", "Araçlar", "Emlak", "Elektronik", "Ev & Bahçe", "Giyim", "Spor", "İş İlanları", "Hayvanlar", "Ders & Kurs", "Hizmetler"];
@@ -288,10 +363,18 @@ export function Anasayfa() {
           <h2 className="text-[20px] font-bold text-[#1A1A1A] tracking-tight mb-4">Şehrinizde Arama Yapın</h2>
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-4 px-4 lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {cities.map((city, i) => (
-              <a href="#" key={i} className="min-w-[160px] border border-[#E8E4DF] rounded-lg p-3.5 block hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)] hover:border-zinc-300 transition-all group bg-sidebar-accent-foreground">
-                <div className={`w-full h-24 rounded-md mb-3 ${city.color} opacity-90 group-hover:opacity-100 transition-opacity`}></div>
-                <h3 className="font-bold text-[15px] text-[#1A1A1A] group-hover:text-[#C0392B] transition-colors">{city.name}</h3>
-                <p className="text-[13px] text-zinc-500 font-medium mt-0.5">{city.count}</p>
+              <a href="#" key={i} className="min-w-[150px] border border-[#E8E4DF] rounded-lg overflow-hidden block hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] hover:border-zinc-300 transition-all group bg-white">
+                <div className="w-full h-24 overflow-hidden relative">
+                  <img
+                    src={`https://picsum.photos/seed/${city.seed}/300/200`}
+                    alt={city.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-3">
+                  <h3 className="font-bold text-[14px] text-[#1A1A1A] group-hover:text-[#C0392B] transition-colors">{city.name}</h3>
+                  <p className="text-[12px] text-zinc-500 font-medium mt-0.5">{city.count}</p>
+                </div>
               </a>
             ))}
           </div>
