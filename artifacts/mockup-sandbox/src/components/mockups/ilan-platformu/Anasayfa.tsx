@@ -165,36 +165,75 @@ const navCategories = [
 ];
 const trends = ["iPhone 15", "Kiralık Daire", "2. El Araba", "MacBook", "PS5", "Bisiklet", "Koltuk Takımı", "Arazi Aracı", "Kombi", "Fotoğraf Makinesi"];
 
-function MegaMenu({ label, items }: { label: string; items: string[] }) {
-  return (
-    <div className="group relative">
-      <button className="whitespace-nowrap py-3.5 transition-colors font-medium text-base border-b-[3px] border-transparent text-zinc-600 group-hover:text-[#1A1A1A] group-hover:border-[#C0392B]/60 flex items-center gap-1.5">
-        {label}
-      </button>
+function CategoryNav() {
+  const [active, setActive] = useState<string | null>(null);
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-      <div className="absolute left-0 top-full pt-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-        <div className="bg-white border border-[#E8E4DF] rounded-xl shadow-2xl min-w-[240px] py-2">
-          <div className="px-3 py-2 border-b border-[#E8E4DF] mb-1">
-            <span className="text-[12px] font-bold uppercase tracking-wider text-[#C0392B]">{label}</span>
+  const activeCat = navCategories.find(c => c.name === active);
+
+  const handleEnter = (name: string) => {
+    if (hideTimer.current) clearTimeout(hideTimer.current);
+    setActive(name);
+  };
+
+  const handleLeave = () => {
+    hideTimer.current = setTimeout(() => setActive(null), 120);
+  };
+
+  return (
+    <div onMouseLeave={handleLeave}>
+      {/* Tab row */}
+      <div className="bg-white border-b border-[#E8E4DF]">
+        <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
+          <div className="flex gap-6 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            {navCategories.map((cat, i) => (
+              <button
+                key={cat.name}
+                onMouseEnter={() => i === 0 ? handleLeave() : handleEnter(cat.name)}
+                className={`shrink-0 whitespace-nowrap py-3.5 font-medium text-base border-b-[3px] transition-colors ${
+                  i === 0
+                    ? 'text-[#C0392B] border-[#C0392B] font-semibold'
+                    : active === cat.name
+                    ? 'text-[#C0392B] border-[#C0392B]'
+                    : 'text-zinc-600 border-transparent hover:text-[#1A1A1A]'
+                }`}
+              >
+                {cat.name}
+              </button>
+            ))}
           </div>
-          {items.map((item) => (
-            <a
-              key={item}
-              href="#"
-              className="flex items-center gap-2 px-4 py-2.5 text-[13px] font-medium text-zinc-700 hover:text-[#C0392B] hover:bg-zinc-50 transition-colors"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-zinc-300" />
-              {item}
-            </a>
-          ))}
-          <a
-            href="#"
-            className="block px-4 py-2.5 mt-1 text-[13px] font-semibold text-[#C0392B] hover:bg-red-50 transition-colors border-t border-[#E8E4DF]"
-          >
-            Tüm {label} İlanları →
-          </a>
         </div>
       </div>
+
+      {/* Dropdown panel — outside overflow, so it's never clipped */}
+      {active && activeCat && (
+        <div
+          className="absolute left-0 right-0 z-50 bg-white border-b border-[#E8E4DF] shadow-xl"
+          onMouseEnter={() => { if (hideTimer.current) clearTimeout(hideTimer.current); }}
+        >
+          <div className="max-w-[1400px] mx-auto px-4 lg:px-8 py-5">
+            <p className="text-[11px] font-bold uppercase tracking-widest text-[#C0392B] mb-3">{active}</p>
+            <div className="grid grid-cols-4 gap-x-8 gap-y-1">
+              {activeCat.sub.map(item => (
+                <a
+                  key={item}
+                  href="#"
+                  className="flex items-center gap-2 py-2 text-[13px] font-medium text-zinc-700 hover:text-[#C0392B] transition-colors"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 shrink-0" />
+                  {item}
+                </a>
+              ))}
+            </div>
+            <a
+              href="#"
+              className="inline-block mt-4 text-[13px] font-semibold text-[#C0392B] hover:underline"
+            >
+              Tüm {active} İlanları →
+            </a>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
