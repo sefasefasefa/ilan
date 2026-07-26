@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { 
-  ChevronDown, ShoppingCart, Star, MapPin, 
+  ChevronDown, ShoppingCart, Star, MapPin, Search, Sparkles,
   Car, Home, Smartphone, Sofa, Shirt, Dumbbell, 
   Briefcase, PawPrint, GraduationCap, Wrench,
   User, Heart, Bell, Settings, LogOut, ClipboardList
@@ -278,6 +278,91 @@ function ProfileMenu() {
   );
 }
 
+const searchTabs = [
+  { id: 'al',     label: 'Al',     subtitle: 'Satılık ilan ara' },
+  { id: 'kirala', label: 'Kirala', subtitle: 'Kiralık ilan ara' },
+  { id: 'sat',    label: 'Sat',    subtitle: 'Hemen ilan ver' },
+];
+
+function SearchSection() {
+  const [activeTab, setActiveTab] = useState('al');
+  const [aiMode, setAiMode] = useState(false);
+  const current = searchTabs.find(t => t.id === activeTab)!;
+
+  return (
+    <div className="bg-white border-b border-[#E8E4DF]">
+      <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
+        {/* Tab row */}
+        <div className="flex items-center justify-between">
+          <div className="flex">
+            {searchTabs.map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-5 py-3.5 font-semibold text-[15px] border-b-2 transition-colors ${
+                  activeTab === tab.id
+                    ? 'border-[#1A1A1A] text-[#1A1A1A]'
+                    : 'border-transparent text-zinc-400 hover:text-zinc-700'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Mode toggle */}
+          <div className="flex items-center border-2 border-[#1A1A1A] rounded-full overflow-hidden text-[13px] font-semibold">
+            <button
+              onClick={() => setAiMode(false)}
+              className={`flex items-center gap-1.5 px-4 py-1.5 transition-colors ${
+                !aiMode ? 'bg-[#1A1A1A] text-white' : 'text-[#1A1A1A] hover:bg-zinc-50'
+              }`}
+            >
+              <Search className="w-3.5 h-3.5" />
+              Klasik
+            </button>
+            <button
+              onClick={() => setAiMode(true)}
+              className={`flex items-center gap-1.5 px-4 py-1.5 transition-colors ${
+                aiMode ? 'bg-[#1A1A1A] text-white' : 'text-[#1A1A1A] hover:bg-zinc-50'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              AI Arama
+            </button>
+          </div>
+        </div>
+
+        {/* Subtitle + input */}
+        <div className="pb-4 pt-1">
+          <p className="text-[13px] font-semibold text-[#1A1A1A] mb-2.5">{current.subtitle}</p>
+          <div className="hidden md:flex border-2 border-zinc-200 rounded-lg overflow-hidden h-12 focus-within:border-[#C0392B] transition-all">
+            <div className="flex items-center px-4 text-zinc-400 shrink-0">
+              <Search className="w-4 h-4" />
+            </div>
+            <input
+              type="text"
+              placeholder={aiMode ? 'İstediğinizi doğal dille yazın…' : 'Şehir, ilçe, ürün veya marka ara…'}
+              className="flex-1 px-2 text-[14px] outline-none min-w-0 font-medium placeholder:text-zinc-400 placeholder:font-normal"
+            />
+            <button className="bg-[#C0392B] text-white px-10 font-semibold text-[14px] hover:bg-[#962A20] transition-colors shrink-0">
+              Ara
+            </button>
+          </div>
+          {/* Mobile */}
+          <div className="flex md:hidden border-2 border-zinc-200 rounded-lg overflow-hidden h-12">
+            <div className="flex items-center px-3 text-zinc-400 shrink-0">
+              <Search className="w-4 h-4" />
+            </div>
+            <input type="text" placeholder="Ne arıyorsunuz?" className="flex-1 px-2 text-[14px] outline-none min-w-0" />
+            <button className="bg-[#C0392B] text-white px-5 font-semibold text-[14px]">Ara</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function Anasayfa() {
   const featuredListings = listings.slice(0, 3);
 
@@ -301,30 +386,8 @@ export function Anasayfa() {
           </div>
         </div>
 
-        {/* Search row */}
-        <div className="bg-white border-b border-[#E8E4DF] py-3">
-          <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
-            <div className="hidden md:flex items-center gap-3">
-              <button className="shrink-0 h-11 px-6 rounded border-2 border-[#1A1A1A] bg-white text-[#1A1A1A] font-semibold text-[14px] hover:bg-zinc-50 transition-colors">
-                Buy
-              </button>
-              <button className="shrink-0 h-11 px-6 rounded border-2 border-[#C0392B] bg-[#C0392B] text-white font-semibold text-[14px] hover:bg-[#962A20] hover:border-[#962A20] transition-colors">
-                Sell
-              </button>
-            <div className="flex-1 flex border-2 border-[#1A1A1A] rounded overflow-hidden h-11 focus-within:ring-2 focus-within:ring-[#C0392B]/20 focus-within:border-[#C0392B] transition-all">
-              <button className="bg-zinc-100 px-4 border-r border-[#1A1A1A] flex items-center gap-2 text-[13px] font-semibold text-zinc-800 hover:bg-zinc-200 transition-colors shrink-0">
-                Kategori <ChevronDown className="w-3.5 h-3.5 opacity-60" />
-              </button>
-              <input type="text" placeholder="Ne arıyorsunuz?" className="flex-1 px-4 text-[14px] outline-none min-w-0 font-medium placeholder:text-zinc-400 placeholder:font-normal" />
-              <button className="bg-[#1A1A1A] text-white px-8 font-semibold text-[14px] hover:bg-black transition-colors">Ara</button>
-            </div>
-            </div>
-            <div className="flex md:hidden border-2 border-[#1A1A1A] rounded overflow-hidden h-11">
-              <input type="text" placeholder="Ne arıyorsunuz?" className="flex-1 px-3 text-[14px] outline-none min-w-0 font-medium placeholder:font-normal placeholder:text-zinc-400" />
-              <button className="bg-[#1A1A1A] text-white px-5 font-semibold text-[14px]">Ara</button>
-            </div>
-          </div>
-        </div>
+        {/* Search section — tab bar + input */}
+        <SearchSection />
 
         <CategoryNav />
       </header>
