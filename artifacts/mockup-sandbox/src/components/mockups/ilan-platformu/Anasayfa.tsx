@@ -110,7 +110,7 @@ export function Anasayfa() {
       {/* Category Nav Bar */}
       <nav className="bg-white border-b border-[#E8E4DF]">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
-          <div className="flex gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="flex gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] bg-sidebar-accent-foreground">
             {navCats.map((nc, i) => (
               <button 
                 key={nc} 
